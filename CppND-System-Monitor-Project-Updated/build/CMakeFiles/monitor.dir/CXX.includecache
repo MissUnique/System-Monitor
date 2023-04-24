@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/format.h
+string
+-
+
+../include/linux_parser.h
+fstream
+-
+regex
+-
+string
+-
+
+../include/process.h
+string
+-
+
+/home/workspace/CppND-System-Monitor-Project-Updated/src/format.cpp
+string
+-
+format.h
+/home/workspace/CppND-System-Monitor-Project-Updated/src/format.h
+
+/home/workspace/CppND-System-Monitor-Project-Updated/src/process.cpp
+unistd.h
+-
+cctype
+-
+sstream
+-
+string
+-
+vector
+-
+process.h
+/home/workspace/CppND-System-Monitor-Project-Updated/src/process.h
+linux_parser.h
+/home/workspace/CppND-System-Monitor-Project-Updated/src/linux_parser.h
+
