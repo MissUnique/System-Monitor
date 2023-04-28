@@ -227,7 +227,7 @@ string LinuxParser::Ram(int pid) {
     while (std::getline(filestream, line)) {
       std::istringstream linestream(line);
       linestream >> key >> mem;
-      if (key == "VmSize:") break;
+      if (key == "VmRSS:") break; // I  have used VmRSS instead of VmSize because VmSize in the whole virtual memory size (according to the man page) while VmRSS gives the physical memory used as part of physical RAM.
     }
   }
   mem = to_string(std::stoi(mem) / 1000);
@@ -278,8 +278,7 @@ long LinuxParser::UpTime(int pid) {
       n--;
     }
   }
-  uptime = std::stoi(value);
-  uptime /= sysconf(_SC_CLK_TCK);
+  uptime = LinuxParser::UpTime() - (std::stol(value) / sysconf(_SC_CLK_TCK));
   return uptime; 
 }
 
@@ -309,6 +308,6 @@ float LinuxParser::CpuUtilization(int pid) {
   hertz = sysconf(_SC_CLK_TCK);
   totaltime_ = utime + stime_ + cutime + cstime;
   seconds = uptime - (starttime / hertz);
-  cpu_usage = 100 * ((totaltime_ / hertz) / seconds);
+  cpu_usage = (totaltime_ / hertz) / seconds;
   return cpu_usage;
 }
